@@ -15,9 +15,6 @@ public class PlayerMoving : MonoBehaviour
     float speed = 0.2f; //Скорость на старте
 
     [SerializeField]
-    private float maxSpeed = 3f; //Максимальная скорость
-
-    [SerializeField]
     private float minSpeed = 1f; //Минимальная скорость
 
     float sideSpeed = 0f; //Скорость движения вбок
@@ -30,13 +27,17 @@ public class PlayerMoving : MonoBehaviour
 
     public Controls control; //Скрипт управления
 
+    private PlayerParameters parameters ; // Параметры игрока
+
     private bool isAlive = true; //Жива ли машина. Если да, то она будет двигаться
     private bool isKilled = false; //Эта переменная нужна, чтобы триггер сработал только один раз
+    private float currentSpeed; // текущая скорость
 
     public List<GameObject> wheels; //Колёса машины
 
     void Start()
     {
+        parameters = GetComponent<PlayerParameters>();
         rb = GetComponent<Rigidbody>();
         road = GameObject.FindGameObjectWithTag("Road");
     }
@@ -45,29 +46,29 @@ public class PlayerMoving : MonoBehaviour
     {
         if (isAlive)
         {
-            float newSpeed = speed; //Скорость движения вперёд
+            currentSpeed = speed; //Скорость движения вперёд
 
 
             if (control != null) //Если подключён скрипт управления
             {
-                newSpeed += control.speed; //Изменение скорости
+                currentSpeed += control.speed; //Изменение скорости
                 sideSpeed = control.sideSpeed; //Изменение направления
             }
 
-            if (newSpeed > maxSpeed)
-            {
-                newSpeed = maxSpeed; //Проверка на превышение максимальной скорости
-            }
+            //if (newSpeed > maxSpeed)
+            //{
+            //    newSpeed = maxSpeed; //Проверка на превышение максимальной скорости
+            //}
 
-            if (newSpeed < minSpeed)
+            if (currentSpeed < minSpeed)
             {
-                newSpeed = minSpeed; //Проверка на слишком низкую скорость
+                currentSpeed = minSpeed; //Проверка на слишком низкую скорость
             }
 
             //Изменение положения машины - она двигается вперёд
             //Для этого к её положению по оси X прибавляется новая скорость, положение по Y остаётся прежним
             //К положение по оси Z прибавляется 0.1f, умноженная на боковую скорость 
-            transform.position = new Vector3(transform.position.x + 0.1f * sideSpeed, transform.position.y, transform.position.z + newSpeed);
+            transform.position = new Vector3(transform.position.x + 0.1f * sideSpeed, transform.position.y, transform.position.z + currentSpeed);
 
             if (control != null)
             {
@@ -120,6 +121,16 @@ public class PlayerMoving : MonoBehaviour
 
 
             }
+        }
+    }
+
+    public void Accelerate()
+    {
+        currentSpeed += parameters.Acceleration * Time.deltaTime;
+
+        if (currentSpeed > parameters.MaxSpeed)
+        {
+            currentSpeed = parameters.MaxSpeed;
         }
     }
 }

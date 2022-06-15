@@ -14,9 +14,6 @@ public class SpawnEnemy2 : MonoBehaviour
     float timeToAddNewCar; // частота добавления новой машины
 
     [SerializeField]
-    GameObject player;
-
-    [SerializeField]
     float distanceFromPlayer; // на какой дистанции от игрока начинать создавать машины
 
     [SerializeField]
@@ -31,9 +28,12 @@ public class SpawnEnemy2 : MonoBehaviour
     float timer;
     public List<GameObject> enemyCars;
 
+    private GameObject player;
+
 
     private void Start()
     {
+        player = GameObject.FindGameObjectWithTag("Player");
         timer = 0f;
         enemyCars = new List<GameObject>();
     }

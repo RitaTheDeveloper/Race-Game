@@ -11,15 +11,15 @@ public class EndlessRoad : MonoBehaviour
     private int numberOfBlocks; // всего блоков в дороге;
 
     [SerializeField]
-    GameObject player; // наш игрок
-
-    [SerializeField]
     private float lengthOfBlock; // длина блока
+
+    GameObject player; // наш игрок
 
     private List<GameObject> blocksOfRoad = new List<GameObject>();
 
     private void Start()
     {
+        player = GameObject.FindGameObjectWithTag("Player");
         BuildingTheRoad();
     }
 

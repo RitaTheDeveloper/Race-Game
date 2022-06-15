@@ -5,16 +5,23 @@ using UnityEngine;
 public class Road : MonoBehaviour
 {
     public List<GameObject> blocks; //Коллекция всех дорожных блоков
-    public GameObject player;
     public GameObject roadPrefab; //Префаб дорожного блока
     public float lengthBlock = 66.5f; //длина блока
 
+    GameObject player;
+
     private System.Random rand = new System.Random(); //Генератор случайных чисел
+
+    private void Start()
+    {
+        player = GameObject.FindGameObjectWithTag("Player");
+    }
 
 
     void FixedUpdate()
     {
         float z = player.GetComponent<PlayerMoving>().rb.position.z; //Получение положения игрока
+        Debug.Log("player.z = " + z);
 
         var last = blocks[blocks.Count - 1]; //Номер дорожного блока, который дальше всех от игрока
 

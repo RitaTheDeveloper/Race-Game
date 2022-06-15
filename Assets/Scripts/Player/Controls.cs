@@ -5,17 +5,34 @@ using UnityEngine;
 public class Controls : MonoBehaviour
 {
     public float speed = 0f; //Скорость
-    public float maxSpeed = 3f; //Максимальная скорость
     public float sideSpeed = 3f; //Боковая скорость
+    public bool isPhone; // управление через телефон
+
+    private float maxSpeed; //Максимальная скорость
+    private float maxSideSpeed; // 
+
+    private void Start()
+    {
+        maxSpeed = GetComponent<PlayerParameters>().MaxSpeed;        
+    }
 
     void Update()
     {
+
+        float moveSide;
+        if (isPhone)
+        {
+            Vector3 acceleration = Input.acceleration;
+
+            moveSide = acceleration.x;
+        }
+        else
+        {
+            moveSide = Input.GetAxis("Horizontal"); //Когда игрок будет нажимать на стрелочки влево или вправо, сюда будет добавляться 1f или -1f
+        }
         //float moveSide = Input.GetAxis("Horizontal"); //Когда игрок будет нажимать на стрелочки влево или вправо, сюда будет добавляться 1f или -1f
         //float moveForward = Input.GetAxis("Vertical"); //То же самое, но со стрелочками вверх и вниз
 
-        Vector3 acceleration = Input.acceleration;
-
-        float moveSide = acceleration.x;
         //float moveForward = acceleration.y;
 
         if (moveSide != 0)
@@ -48,7 +65,7 @@ public class Controls : MonoBehaviour
 
     public void OnClickSpeed()
     {
-
-        speed += 0.2f;        
+        speed += 0.2f;
+        Debug.Log(speed);
     }
 }

@@ -12,8 +12,9 @@ GameObject:
   - component: {fileID: 6060910822233342875}
   - component: {fileID: 6060910822233342874}
   - component: {fileID: 6060910822233342873}
+  - component: {fileID: -1736310220203606343}
   m_Layer: 0
-  m_Name: PlayerCar
+  m_Name: PlayerCar_1
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -66,7 +67,6 @@ MonoBehaviour:
   rb: {fileID: 6060910822233342875}
   car: {fileID: 6060910822506733437}
   speed: 0.2
-  maxSpeed: 3
   minSpeed: 0.1
   road: {fileID: 0}
   brokenPrefab: {fileID: 0}
@@ -86,8 +86,26 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 0
-  maxSpeed: 3
   sideSpeed: 0
+  isPhone: 0
+--- !u!114 &-1736310220203606343
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6060910822233342872}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e16eee174c281ca4e836b0ce8eaf9b8b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  acceleration: 0
+  brakeDeceleration: 0
+  maxSpeed: 2
+  maxSideSpeed: 2
+  standartDeceleration: 0
+  maxHealth: 0
 --- !u!1 &6060910822506733437
 GameObject:
   m_ObjectHideFlags: 0
